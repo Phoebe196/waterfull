@@ -1,18 +1,15 @@
 $(window).on('load',function(){
-	waterfull();
-	
-	$(window).on('scroll',function(){
+	waterfull();	
+	$.getJSON('image.json',function(json){//从外部获取json数据文件
+		$(window).on('scroll',function(){
 		if(checkscrollside){//判断是否具备加载图片的条件
-		$.getJSON('image.json',function(json){
-          $.each(json.data,function(key,value){
-              var oPic=$('<div>').addClass('pic').appendTo($('#main'));
-              $('<img>').attr('src',$(value).attr('src')).appendTo($(oPic));
-               
-          
-      })
-          waterfull();
-})
+			$.each(json.data,function(key,value){
+				var oPic=$('<div>').addClass('pic').appendTo($('#main'));
+				$('<img>').attr('src',$(value).attr('src')).appendTo($(oPic));
+				waterfull();
+			})
 		}
+	})
 	})
 })
 
