@@ -1,14 +1,15 @@
 $(window).on('load',function(){
-	waterfull();	
+	waterfull();
 	$.getJSON('image.json',function(json){//从外部获取json数据文件
 		$(window).on('scroll',function(){
-		if(checkscrollside){//判断是否具备加载图片的条件
+		if(checkscrollside()){//判断是否具备加载图片的条件
 			$.each(json.data,function(key,value){
 				var oPic=$('<div>').addClass('pic').appendTo($('#main'));
 				$('<img>').attr('src',$(value).attr('src')).appendTo($(oPic));
 				waterfull();
 			})
 		}
+
 	})
 	})
 })
@@ -21,9 +22,9 @@ function waterfull(){
 	var hArr=[];//存放一行每张图的高度
 	$pics.each(function(index,value){
 		var h=$pics.eq(index).outerHeight();
-        if(index<cols){
+		if(index<cols){
           hArr[index]=h;//存放前六张图的高
-        }else{
+      }else{
         	var minH=Math.min.apply(null,hArr);//求前六张的高度最小的值
         	var minHIndex=$.inArray(minH,hArr);//高度最小的索引值
         	$(value).css({
@@ -33,7 +34,7 @@ function waterfull(){
         	})//把第七张图定位到高度最小的图下方
         	hArr[minHIndex]+=$pics.eq(index).outerHeight();//更新定位完的这一列的值
         }
-	})
+    })
 }
 
 function checkscrollside(){
@@ -41,5 +42,11 @@ function checkscrollside(){
 	var lastBoxDis=$lastBox.offset().top+Math.floor($lastBox.outerHeight()/2);
 	var scrollTop=$(window).scrollTop();
 	var documentH=$(window).height();
-	return (lastBoxDis<scrollTop+documentH)?true:false;
+	// return (lastBoxDis<scrollTop+documentH)?true:false;
+	if(lastBoxDis<scrollTop+documentH){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
