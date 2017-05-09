@@ -7,7 +7,8 @@
             {"src":"images/43.jpg"},{"src":"images/44.jpg"},{"src":"images/45.jpg"},{"src":"images/46.jpg"},{"src":"images/47.jpg"},{"src":"images/48.jpg"},
             {"src":"images/49.jpg"},{"src":"images/50.jpg"}]};
             window.onscroll=function(){
-               if (checkScrollSlide) {
+                // alert(checkScrollSlide());
+             if (checkScrollSlide()) {
                 var oParent=document.getElementById('main');
                     //将数据块渲染到当页面的尾部
                     for(i=0;i<dataInt.data.length;i++){
@@ -66,6 +67,12 @@
         var oBox=getByClass(oParent,'pic');
         var lastBoxH=oBox[oBox.length-1].offsetTop+Math.floor(oBox[oBox.length-1].offsetHeight/2);
         var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
-        var height = document.body.clientHeight||document.documentElement.clientHeight;
-        return (lastBoxH<scrollTop+height)?true:false;
+        var height = window.innerHeight;
+
+        if(lastBoxH<scrollTop+height){            
+            return true;
+        }
+        else{
+            return false;
+        }
     }
